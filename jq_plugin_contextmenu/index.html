@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/jquery.contextmenu.css" />
+
+<style type="text/css">
+	.container{
+		width: 400px;
+		/*border: 1px solid #ccc;*/
+		margin: 0 auto;
+		text-align: center;
+	}
+</style>
+</head>
+
+<body>
+
+	<div class="container">
+		
+		<div class="divContent">
+			<textarea id="txtContent" cols="30" rows="7">请在此处点击右键</textarea>
+		</div>
+
+		<div id="sysMenu" class="contextMenu"><!-- 此处class涉及插件css样式，不可随意改动 -->
+			<ul>
+				<li id="f1"><img src="../images/new.png" />新建</li>
+				<li id="f2"><img src="../images/folder.png" />打开</li>
+				<li id="f3"><img src="../images/disk.png" />保存</li>
+				<hr /> 
+				<li id="f4"><img src="../images/cross.png" />退出</li>
+			</ul>
+		</div>
+
+	</div>
+
+
+<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.contextmenu.js"></script>
+<script type="text/javascript">
+	$(function (){
+		
+		$("#txtContent").contextMenu("sysMenu", {
+			bindings: {
+				"f1": function (item){
+					console.log(this)
+					alert("在 id 为 " + item.id + " 的编辑框中，您点击了“新建”选项");
+				},
+				"f2": function (item){
+					alert("在 id 为 " + item.id + " 的编辑框中，您点击了“打开”选项");
+				},
+				"f3": function (item){
+					alert("在 id 为 " + item.id + " 的编辑框中，您点击了“保存”选项");
+				},
+				"f4": function (item){
+					alert("在 id 为 " + item.id + " 的编辑框中，您点击了“退出”选项");
+				},
+			}
+		});
+		
+	});
+</script>
+</body>
+</html>

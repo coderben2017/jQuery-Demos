@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/jquery.autocomplete.css" />
+
+<style type="text/css">
+	.container{
+		width: 400px;
+		/*border: 1px solid #ccc;*/
+		margin: 0 auto;
+		text-align: center;
+	}
+</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<input id="searchName" type="text" name="name" placeholder="请在此双击或输入姓氏" />
+		<p class="msg"></p>
+	</div>
+
+
+<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script><!-- jQuery1.9以后不支持browser -->
+<script type="text/javascript" src="../js/jquery-migrate-1.2.1.js"></script><!-- jQuery应用迁移适配插件 -->
+<script type="text/javascript" src="../js/jquery.autocomplete.js"></script>
+<script type="text/javascript">
+	$(function (){
+		
+		var arrData = ["张三", "王小五", "张才子",
+            "李四", "张大三", "李大四", "王五", "刘明",
+            "李小四", "刘促明", "李渊", "张小三", "王小明"];
+		
+		$("#searchName").autocomplete(arrData, {
+
+			minChars: 0,// 双击空白文本框时显示全部提示数据
+
+			formatItem: function (data, i ,total){
+				return "<i>" + data[0] + "</i>";
+			},
+
+			formatMatch: function (data, i ,total){
+				return data[0];
+			},
+
+			formatResult: function (data){
+				return data[0];
+			}
+
+		}).result(searchCallback);
+
+		/* 定义回调函数 */
+		function searchCallback(event, data, formatted){
+			$(".msg").html("您的选择是：" + (!data ? "空" : formatted));
+		}
+
+	});
+</script>
+</body>
+</html>

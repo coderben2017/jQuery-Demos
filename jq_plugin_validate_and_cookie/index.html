@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<style type="text/css">
+		.container{
+			width: 400px;
+			margin:0 auto;
+			text-align: center;
+			border: 1px solid #ccc;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<form class="login_form" method="post" action="#">
+			<p>帐号 <input class="username" type="text" name="username" /><br /><span></span></p>
+			<p>邮箱 <input class="email" type="text" name="email" /><br /><span></span></p>
+			<p><input class="saveCookie" type="checkbox" />保存帐号和邮箱</p>
+			<p><input class="submit" type="submit" /></p>
+		</form>
+	</div>
+
+
+<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.messages_cn.js"></script><!-- 提示信息汉化插件 -->
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<script type="text/javascript">
+	$( function () {
+
+		/* cookie */
+		if( $.cookie("UserName") ){
+			$("input.username").val($.cookie("UserName"));
+		}
+
+		$(".submit").submit(function (){
+			if( $(".saveCookie").attr("checked") ){
+				// 保存cookie
+				$.cookie("UserName", $(".username").val(), {
+					path: "/",
+					expires: 7
+				});
+			}else{// 清除cookie
+				$.cookie("UserName", null, {
+					path: "/"
+				});
+			}
+			return false;// 阻止提交
+		});
+
+		/* validate */
+		$("form.login_form").validate({
+			// 定义规则
+			rules: {
+				username: {required: true, minlength: 6},
+				email: {required: true, email: true}
+			},
+			// 定义错误提示位置
+			errorPlacement: function (error, element){
+				error.appendTo(element.siblings("span"));
+				$(".login_form span").css("color", "#f00");
+			}
+		});
+
+	} );
+</script>
+</body>
+</html>
