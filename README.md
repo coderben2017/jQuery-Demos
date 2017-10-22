@@ -30,6 +30,7 @@
 13. [jQuery插件——右键菜单插件contextmenu](https://coderben2017.github.io/jQuery-Demos/jq_plugin_contextmenu)
 
 14. [移动端轮播图（小图轮播大图呈现）](https://coderben2017.github.io/jQuery-Demos/slider)
+    - 注：适配 480 × 800 px 屏幕
 
 ### Update Time
 
