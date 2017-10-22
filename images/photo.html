@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+<style>
+*{margin: 0;padding: 0;}
+	html, body{ width: 100%; height: 100%;}
+.opt-star-picbook-bgDiv{ position:absolute; width:1170px; height:100% ;background:url({%$tplData.starBgUrl|ssl_url_r%}) top right no-repeat;}
+.opt-star-picbook-picProgress {background-color:rgba(0,0,0,.5);}
+</style>
+<style data-merge>
+#con-at{background-color:#1f1a25;}
+.opt-star-picbook-pageArea .opt-star-picbook-picProgress {  position: absolute;
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+  right: 0px;
+  bottom: 0px; 
+  background: url('img01.jpg') repeat;}
+.opt-star-picbook-picProgress .opt-star-picbook-num{
+	  position: absolute;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #000;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  width: 100px;
+  border-radius: 50%;
+  right: 100px;
+  bottom: 100px;
+  background-color: rgba(0,0,0,.5);
+}
+.opt-star-picbook-picProgress img{
+	width: 42px;
+	height: 42px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -21px;
+	margin-top: -21px;
+}
+.opt-star-picbook-picProgress .opt-star-picbook-num .opt-star-picbook-num25{font-size: 20px;}
+.opt-star-picbook-baseBox{ width:100%;height:100%; position:relative ; background-color:#1f1a25;}
+.wrapper_s  #con-at .result-op .opt-star-picbook-baseBox{ width:854px;}
+.wrapper_s  #con-at .result-op  .opt-star-picbook-bgDiv{display:none;}
+
+
+.opt-star-picbook-contentBox {  
+	width: 900px;
+	z-index: 10;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -450px;
+	margin-top: -290px;}
+.opt-star-picbook-header{ position:relative; height:37px; padding-top:20px; line-height:37px; font-family:'\5b8b\4f53'; font-size:12px;color:#999; }
+.opt-star-picbook-header h3{position:absolute; width:50%; font-size:16px; color:#fff;}
+.opt-star-picbook-header div{position: absolute}
+.opt-star-picbook-wathed{width:100px; right:180px;}
+.opt-star-picbook-share{ width:140px; right:0px;}
+.opt-star-picbook-shareBtnbox{ width:50px; height: 33px;right: 0px;top: 0px; padding-top: 4px;}
+.opt-star-picbook-body{height:500px; position:relative; z-index:10; background:url('img01.jpg') repeat; }
+.opt-star-picbook-body div{_height:500px; position:absolute;height: 100%;width:100%;}
+.opt-star-picbook-pageBox{
+	display:none;
+	perspective:4000px;
+	-ms-perspective:4000px;
+	-moz-perspective:4000px;
+	-o-perspective:4000px;
+	-webkit-perspective:4000px; /* Safari and Chrome */}
+    
+.opt-star-picbook-pageBox .opt-star-picbook-pL1{ width:50%; right:50%; }
+.opt-star-picbook-pageBox .opt-star-picbook-pL2{width:50%; right:50%;}	
+	
+.opt-star-picbook-pageBox .opt-star-picbook-pR1{width:50%; left:50%; }
+.opt-star-picbook-pageBox .opt-star-picbook-pR2{width:50%; left:50%; }	
+	
+.opt-star-picbook-pageBox div{ overflow:hidden;}
+.opt-star-picbook-pageBox img { position:absolute; height:100%; width:200%;}
+	
+.opt-star-picbook-pL1 img{ left:0px;}
+.opt-star-picbook-pL2 img{ left:0px;}
+.opt-star-picbook-pR1 img{ right:0px;}
+.opt-star-picbook-pR2 img{ right:0px;}
+    
+    
+.opt-star-picbook-pageBox .opt-star-picbook-page{
+	width:50%;
+	right:0px;
+	overflow:hidden;
+	transform-origin: 0;
+	-ms-transform-origin: 0;
+	-o-transform-origin: 0;
+	-moz-transform-origin: 0;
+	-webkit-transform-origin: 0;
+	
+	transform: rotateY(0deg);
+	-ms-rotateY(0deg);
+	-o-rotateY(0deg);
+	-moz-rotateY(0deg);
+	-webkit-transform: rotateY(0deg); /* Safari and Chrome */
+}
+.opt-star-picbook-page{
+    -webkit-transition:-webkit-transform 1s ease-in-out;
+    -moz-transition:-moz-transform 1s ease-in-out;
+    -o-transition:-o-transform 1s ease-in-out;
+    -ms-transition:-ms-transform 1s ease-in-out;    
+    transition:transform 1s ease-in-out;
+}
+.opt-star-picbook-preNextBox{ z-index:100;background:#fff;opacity:0;filter:alpha(opacity:0);}
+.opt-star-picbook-page img{ position:absolute; height:100%; width:200%}
+.opt-star-picbook-body .opt-star-picbook-pre{width: 50%; cursor:url(left.ico),auto;cursor:url(left.ico),-moz-zoom-out;}
+.opt-star-picbook-body .opt-star-picbook-next{width:50%; right:0px; cursor:url(right.ico),auto; cursor:url(right.ico),-moz-zoom-out;}
+.midPaper{z-index: 2; background:url('img01.jpg') repeat;}
+
+.opt-star-picbook-pL1 img,.opt-star-picbook-pL2 img,.opt-star-picbook-pR1 img,.opt-star-picbook-pR2 img {
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)" \9;
+
+  /* IE 5-7 */
+  *filter: alpha(opacity=100);
+
+  /* Netscape */
+  -moz-opacity: 1;
+
+  /* Safari 1.x */
+  -khtml-opacity: 1;
+
+  /* Good browsers */
+  opacity: 1;
+}
+</style>
+
+<div class="opt-star-picbook-baseBox">
+    <div class="opt-star-picbook-contentBox">
+      <div class="opt-star-picbook-header">
+      	<h3>青春纪念册</h3>
+        <div class="opt-star-picbook-wathed" >已有<span class="opt-star-picbook-wathed-num">500</span>人看过</div>
+      </div> 
+      <div class="opt-star-picbook-body">
+            <div class="opt-star-picbook-pageArea">
+                <div class="opt-star-picbook-picProgress">
+                    <div class="opt-star-picbook-num">
+                        <span class="opt-star-picbook-num36">0</span><span class="opt-star-picbook-num25">%</span>
+                    </div>
+                </div>
+
+                <div class="opt-star-picbook-pageBox">
+                    <!--<div class="opt-star-picbook-page"></div>-->
+                </div>
+                <div class="opt-star-picbook-preNextBox">
+                    <div class="opt-star-picbook-pre"></div>
+                    <div class="opt-star-picbook-next"></div>
+                </div>
+           </div>
+      </div>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script >
+$(function(){
+        var _this = $('.opt-star-picbook-baseBox');
+		var imgs = [];
+		var pages= [];
+		var $pageBox = _this.find('.opt-star-picbook-pageBox');
+        var isCss3 = supportCss3('perspective');
+	    var list = [];
+	    for(var i=1;i<=6;i++){
+	    	list.push('img0'+i+').jpg')
+	    }
+        var $watchNum = _this.find('.opt-star-picbook-wathed-num');
+        var timer1,timer2,timer3,timer4;
+        var $preBtn = _this.find('.opt-star-picbook-pre');
+        var $nextBtn = _this.find('.opt-star-picbook-next');
+		var rate = parseFloat(($pageBox.width()-50)/($pageBox.height()-50));//盒子的宽高比
+		$.when(preloadImg(list, imgs)).done(function() {
+        	if(isCss3){
+        		go()
+        	}else{
+        		IEgo();
+        	};
+        	hideMask();
+         });
+		function hideMask(){
+        	var $loading=_this.find('.opt-star-picbook-picProgress');
+        	$loading.css('opacity',1).fadeTo(3500,0,function(){$(this).hide()});
+            $pageBox.css('opacity',0).fadeTo(3500,1);
+        };
+        function supportCss3(style) {  
+            var prefix = ['webkit', 'Moz', 'ms', 'o'],  
+                i,  
+                humpString = [],  
+                htmlStyle = document.documentElement.style,  
+                _toHumb = function (string) {  
+                        return string.replace(/-(\w)/g, function ($0, $1) {  
+                                return $1.toUpperCase();  
+                        });  
+                    };  
+            for (i in prefix)  
+                humpString.push(_toHumb(prefix[i] + '-' + style));  
+            humpString.push(_toHumb(style));  
+            for (i in humpString)  
+                if (humpString[i] in htmlStyle) return true;  
+            return false;  
+		};
+		function go()
+		{
+
+			for(var i=0,aLen=imgs.length;i<aLen;i++)
+            {
+				if(i==0)
+				{
+					createPage((aLen+2),'first',0);
+				}
+				if(i==(aLen-1))
+				{
+					createPage((aLen+1-i),i,'last');
+				}
+				else
+				{
+					createPage((aLen+1-i),i,i+1);
+				};					
+			};
+			var bStop=false;
+			var iNow=0;
+			(function openFirstPage(){//默认打开第一页。
+				var $pageNow=pages[iNow];
+				$pageNow.css({'transition': 'transform 0s','transform':'rotateY(-180deg)'});
+					$pageNow.css('z-index',iNow);
+					changeZindex($pageNow.$imgi,$pageNow.$imgj);				
+					iNow++;						
+			})();
+			$preBtn.click(function(){
+					if(iNow==1)
+					{return;}
+					if(!bStop){
+						bStop=true;
+						iNow--;
+						var $pageNow=pages[iNow];
+						$pageNow.css({'transform':'rotateY(0deg)'});
+						clearTimeout(timer1);
+						timer1 = setTimeout(function(){
+							$pageNow.css('z-index',(pages.length+1-iNow));
+							changeZindex($pageNow.$imgi,$pageNow.$imgj);
+						},500);
+                        clearTimeout(timer2);
+						timer2 = setTimeout(function(){
+						bStop=false;
+						},1000);					
+					}
+				});		
+			$nextBtn.click(function(){	
+			//用html5的transitionEnd事件，监听翻页到中间（-90）时刻停止。然后改变zindex继续到（-180）。但是后面90度翻页效果失败。放弃。
+			// css3 transition  和 js timeout  实现翻页到中间时进行其他执行。
+					if(iNow==(pages.length-1))
+					{
+						return;
+					};
+					if(!bStop){
+						bStop=true;
+						var $pageNow=pages[iNow];
+						$pageNow.css({'transform':'rotateY(-180deg)'});
+                        clearTimeout(timer3);
+						timer3 = setTimeout(function(){
+							$pageNow.css('z-index',iNow)
+							changeZindex($pageNow.$imgi,$pageNow.$imgj);
+						},500);
+						iNow++;		
+                        clearTimeout(timer4);
+						timer4 = setTimeout(function(){
+							bStop=false;
+						},1000)	;
+					};
+				});
+			function changeZindex($imgi,$imgj)
+			{
+				if($imgi&&$imgj)
+				{
+					var temp= $imgi.css('z-index');
+					$imgi.css('z-index',$imgj.css('z-index'));
+					$imgj.css('z-index',temp);				
+				};
+			};
+			function createPage( pageZindex,i,j)
+			{
+				var $imgi,$imgj;
+				var $page = $('<div class="opt-star-picbook-page"></div>');
+				if(j=='last')//最后一页
+				{
+					$imgi=$(imgs[i]).clone(true);
+					$page.append($imgi).css('z-index',pageZindex).append('<div class="midPaper"></div>');
+					$imgi.css({'z-index':3});
+					$pageBox.append($page);
+				}
+				else if(i=='first')//第一页
+				{
+					$imgj=$(imgs[j]).clone(true);
+					$page.append('<div class="midPaper"></div>').append($imgj).css('z-index',pageZindex);
+					$imgj.css({'transform':'rotateY(180deg)','z-index':3});
+					$pageBox.append($page);
+				}
+				else
+				{
+					$imgi=$(imgs[i]).clone(true);
+					$imgj=$(imgs[j]).clone(true);
+					$page.append($imgi).append('<div class="midPaper"></div>').append($imgj).css('z-index',pageZindex);
+					$imgi.css({'z-index':3});
+					$imgj.css({'transform':'rotateY(180deg)','z-index':1});		
+					$pageBox.append($page);	
+				};
+				$page.$imgi=$imgi;
+				$page.$imgj=$imgj;
+				pages.push($page);
+			};
+		}
+	   function IEgo()
+		{
+			var $pageL1 = $('<div class="opt-star-picbook-pL1 "></div>');
+			var $pageL2 = $('<div class="opt-star-picbook-pL2 "></div>');
+			var $pageR1 = $('<div class="opt-star-picbook-pR1 "></div>');
+			var $pageR2 = $('<div class="opt-star-picbook-pR2 "></div>');
+			$pageBox.append($pageL1).append($pageL2).append($pageR1).append($pageR2);
+				$pageL1.append($(imgs[0]).clone());
+				$pageL2.append($(imgs[0]).clone());
+
+				$pageR1.append($(imgs[1]).clone().fadeTo(0,0));
+				$pageR2.append($(imgs[0]).clone());
+				(function lrbt(){
+					$pageL1.find('img').each(function(){
+						$pageL1.css({width:imgs[0].lwidth,height:imgs[0].bheight,top:imgs[0].btop});
+					})
+					$pageL2.find('img').each(function(){
+						$pageL2.css({width:imgs[0].lwidth,height:imgs[0].bheight,top:imgs[0].btop});
+					})
+					$pageR1.find('img').each(function(){
+						$pageR1.css({width:imgs[1].lwidth,height:imgs[1].bheight,top:imgs[1].btop});
+					})
+					$pageR2.find('img').each(function(){
+						$pageR2.css({width:imgs[0].lwidth,height:imgs[0].bheight,top:imgs[0].btop});
+					})
+				})();
+				var bStop=false;
+				var iNow=0;
+				$nextBtn.click(function(){
+	            	if(iNow==imgs.length-1)
+	                {return};
+						if(!bStop)
+						{
+							bStop=true;
+						 	goNext();	
+						}
+					});
+				$preBtn.click(function(){
+	                    if(iNow==0)
+	                    {return};
+						if(!bStop)
+						{
+							bStop=true;
+						 	goPre();	
+						};
+					});		
+
+				function goNext()
+				{
+
+					$pageL1.html('').append($(imgs[iNow]).clone());
+					$pageL2.css('width','0px');
+					$pageL2.html('').append($(imgs[iNow+1]).clone());
+					
+					$pageR1.html('').append($(imgs[iNow+1]).clone().fadeTo(0,0));
+					$pageR1.find('img').fadeTo(500,1);
+
+					$pageR2.html('').append($(imgs[iNow]).clone());
+					(function lrbt(){
+						$pageL1.find('img').each(function(){
+							$pageL1.css({width:imgs[iNow].lwidth,height:imgs[iNow].bheight,top:imgs[iNow].btop});
+						})
+						$pageL2.find('img').each(function(){
+							$pageL2.css({height:imgs[iNow+1].bheight,top:imgs[iNow+1].btop});
+						})
+						$pageR1.find('img').each(function(){
+							$pageR1.css({width:imgs[iNow+1].lwidth,height:imgs[iNow+1].bheight,top:imgs[iNow+1].btop});
+						})
+						$pageR2.find('img').each(function(){
+							$pageR2.css({width:imgs[iNow].lwidth,height:imgs[iNow].bheight,top:imgs[iNow].btop});
+						})
+					})();
+					$pageR2.animate({ width:'0px'},{
+						duration:500,
+						complete:function(){
+							$pageR2.html('').append($(imgs[iNow+1]).clone());
+							$pageR1.html('').append($(imgs[iNow+2]).clone().fadeTo(0,0));
+						
+							(function lrbt(){
+								$pageR1.find('img').each(function(){
+									$pageR1.css({width:imgs[iNow+2].lwidth,height:imgs[iNow+2].bheight,top:imgs[iNow+2].btop});
+								})		
+								$pageR2.find('img').each(function(){
+									$pageR2.css({width:imgs[iNow+1].lwidth,height:imgs[iNow+1].bheight,top:imgs[iNow+1].btop});
+								})
+							})();
+							$pageL1.find('img').fadeTo(500,0);
+							$pageL2.animate({ width:imgs[iNow+1].lwidth},{
+								duration:500, 
+								complete:function(){
+									iNow++;
+									bStop=false;
+								}
+							});
+						}});
+				};
+				function goPre()
+				{
+					$pageR1.html('').append($(imgs[iNow]).clone());
+					$pageR2.css('width','0px');
+					$pageR2.html('').append($(imgs[iNow-1]).clone());
+					$pageL1.html('').append($(imgs[iNow-1]).clone().fadeTo(0,0));
+					$pageL1.find('img').fadeTo(500,1);
+					$pageL2.html('').append($(imgs[iNow]).clone());
+					(function lrbt(){
+						$pageL1.find('img').each(function(){ // ie9 克隆的img对象，属性丢失。
+							$pageL1.css({width:imgs[iNow-1].lwidth,height:imgs[iNow-1].bheight,top:imgs[iNow-1].btop});
+						})
+						$pageL2.find('img').each(function(){
+							$pageL2.css({height:imgs[iNow].bheight,top:imgs[iNow].btop});
+						})
+						$pageR1.find('img').each(function(){
+							$pageR1.css({width:imgs[iNow].lwidth,height:imgs[iNow].bheight,top:imgs[iNow].btop});
+						})
+						$pageR2.find('img').each(function(){
+							$pageR2.css({height:imgs[iNow-1].bheight,top:imgs[iNow-1].btop});
+						})
+					})();
+					$pageL2.animate({ width:'0px'},{
+						duration:500,
+						complete:function(){
+							$pageL2.html('').append($(imgs[iNow-1]).clone());
+							$pageL1.html('').append($(imgs[iNow-1]).clone().fadeTo(0,0));
+							(function lrbt(){
+								$pageL1.find('img').each(function(){
+									$pageL1.css({width:imgs[iNow-1].lwidth,height:imgs[iNow-1].bheight,top:imgs[iNow-1].btop});
+								})
+								$pageL2.find('img').each(function(){
+									$pageL2.css({width:imgs[iNow-1].lwidth,height:imgs[iNow-1].bheight,top:imgs[iNow-1].btop});
+								})
+							})();
+							$pageR1.find('img').fadeTo(500,0);
+							$pageR2.animate({ width:imgs[iNow-1].lwidth},
+	                        	{
+	                                duration:500, 
+	                                complete:function(){
+	                                    iNow--;
+	                                    bStop=false;
+								}
+							});
+						}});	
+				};
+		};
+
+		function preloadImg(list,imgs) 
+		{
+			var def = $.Deferred(),
+				total = list.length,
+	            len = total;
+	        var $span = _this.find('.opt-star-picbook-num36');
+			$(list).each(function(i,e) {
+				var img = new Image();
+				img.src = e;
+				if(img.complete) {
+					calSize(img);
+					imgs[i] = img;
+					len--;
+	                progressNum();
+					if(len == 0) {
+						def.resolve(); // jquery   所有图像下载完毕，改变Deferred对象的执行状态
+					};
+				}
+				else {
+					img.onload = (function(j) {
+						return function() {
+							calSize(img);
+							imgs[j] = img
+							len--;
+	                        progressNum();
+							if(len == 0) {
+								def.resolve();  // jquery    所有图像下载完毕，改变Deferred对象的执行状态
+							};
+						};
+					})(i);
+					img.onerror = function() {
+						len--;
+					};
+				};
+			});
+			return def.promise();
+	        function progressNum(){
+	        	$span.html(Math.round((1-len/total)*100));
+	        };
+		};
+	function calSize(img){
+		var orate = parseFloat(img.width/img.height);  //img.width 和img.height  直接取原始宽高。
+		var tempw,temph;
+		if(img.width>($pageBox.width()-50)||img.height>($pageBox.height()-50)){ //高或宽超出盒子大小。
+			if(isCss3){
+				if(orate>=rate){//宽大于高，缩小宽度为准。
+					img.style.width=($pageBox.width()-50)+'px';
+					img.style.height = ($pageBox.width()-50)/orate+'px'
+				}else{// 缩小高度，宽跟随
+					img.style.height =($pageBox.height()-50)+'px';
+					img.style.width = ($pageBox.height()-50)*orate+'px';
+				}
+				img.style.right =($pageBox.width()-$(img).width())/2+'px';
+				img.style.top = ($pageBox.height()-$(img).height())/2+'px';					
+			}else{
+				if(orate>=rate){//宽大于高，缩小宽度为准。
+					img.lwidth=($pageBox.width()-50)/2+'px';
+					console.log(img.lwidth);
+					img.bheight = ($pageBox.width()-50)/orate+'px'
+					tempw = $pageBox.width()-50;
+					temph = tempw/orate;
+				}else{// 缩小高度，宽跟随
+					img.bheight =($pageBox.height()-50)+'px';
+					img.lwidth = (($pageBox.height()-50)*orate)/2+'px';
+					temph =$pageBox.height()-50;
+					tempw = temph*orate;
+				}	
+				img.lright =($pageBox.width()-tempw)/2+'px';
+				img.btop = ($pageBox.height()-temph)/2+'px';			
+			}
+		}else{
+			if(isCss3){
+				img.style.width = img.width+'px';
+				img.style.height = img.height+'px';
+				img.style.right =($pageBox.width()-$(img).width())/2+'px';
+				img.style.top = ($pageBox.height()-$(img).height())/2+'px';	
+			}else{
+				img.lwidth = img.width/2+'px';
+				img.bheight = img.height+'px';
+				img.lright =($pageBox.width()-img.width)/2+'px';
+					//$(img).width() ie9以下无法取值（为0）.
+				img.btop = ($pageBox.height()-img.height)/2+'px';	
+			}
+		}
+
+	}
+
+})
+</script>
+</html>
